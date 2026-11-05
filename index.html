@@ -5,127 +5,142 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>La carta dei vini - Piantavigna</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        @import url('https://fonts.cdnfonts.com/css/cubao-narrow');
+
         body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #f8f9fa; /* Sfondo bianco caldo */
-            color: #1a1a1a; /* Carattere scuro antracite */
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+            color: #1a1a1a;
             overflow-x: hidden;
             min-height: 100vh;
         }
-        .font-handwriting {
-            font-family: 'Caveat', cursive;
+
+        button, .cat-btn, .beer-cat-btn, .spirit-cat-btn, a[id*="tab-"], .cubao-text {
+            font-family: 'Cubao Narrow', 'Poppins', sans-serif !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.5px;
         }
-        .text-ocra {
-            color: #b08968;
+
+        .wine-title-cubao {
+            font-family: 'Cubao Narrow', 'Poppins', sans-serif !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.5px;
         }
-        .bg-ocra {
-            background-color: #b08968;
+
+        /* Sfondo bianco e solo bordo colorato per le schede (spessore 4px) */
+        .card-double-border {
+            background-color: #ffffff;
+            transition: all 0.2s ease-in-out;
         }
-        .border-ocra {
-            border-color: #b08968;
+
+        /* Colori dinamici per il bordo delle schede (4px) */
+        .border-bianco { border: 4px solid #e5e7eb; }
+        .border-giallo { border: 4px solid #eab308; }
+        .border-rosso { border: 4px solid #ef4444; }
+        .border-rosa { border: 4px solid #ec4899; }
+        .border-grigio { border: 4px solid #9ca3af; }
+        .border-viola { border: 4px solid #8b5cf6; }
+        .border-blu { border: 4px solid #3b82f6; }
+        .border-nero { border: 4px solid #000000; }
+        .border-verde { border: 4px solid #22c55e; }
+        .border-marrone { border: 4px solid #b45309; }
+
+        /* Traccia rosa e testo bianco per il tasto Random */
+        .random-text-stroke {
+            color: #ffffff;
+            -webkit-text-stroke: 1px #f472b6;
+            text-stroke: 1px #f472b6;
         }
     </style>
 </head>
 <body class="p-4 md:p-8 max-w-4xl mx-auto">
 
     <header class="text-center my-6 border-b border-stone-300 pb-6">
-        <!-- Logo e Logotipo Piantavigna -->
-        <div class="flex flex-col items-center justify-center gap-3 mb-4">
+        <div class="flex flex-col items-center justify-center gap-3 mb-2">
             <img src="https://i.ibb.co/XMcmLz5/logo-piantavigna.png" alt="Logo Piantavigna" class="w-16 h-16 md:w-20 md:h-20 object-contain">
             <img src="https://i.ibb.co/v4876gpM/logotipo-piantavigna.png" alt="Piantavigna" class="h-8 md:h-10 object-contain">
         </div>
+
+        <div class="flex justify-center items-center mt-2.5">
+            <a href="https://www.instagram.com/viticolturaerotica/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-xs text-stone-600 hover:text-stone-900 font-medium tracking-wide transition active:scale-95">
+                <span>powered by viticolturaerotica</span>
+                <img src="https://i.ibb.co/XrYGdthZ/icona.png" alt="Viticoltura Erotica" class="w-5 h-5 object-contain rounded-full shadow-xs">
+            </a>
+        </div>
         
-        <!-- Interruttore Carta / Mescita / Superalcolici -->
+        <!-- Interruttore sezioni con sfondo azzurro del logo -->
         <div class="flex justify-center mt-4">
-            <div class="inline-flex flex-wrap justify-center bg-stone-200/70 p-1.5 rounded-2xl border border-stone-300 shadow-sm gap-1.5">
+            <div class="inline-flex flex-wrap justify-center p-1.5 rounded-2xl shadow-sm gap-1.5" style="background-color: #38bdf8;">
                 <button onclick="switchView('carta')" id="tab-carta" class="px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition cursor-pointer bg-stone-900 text-white shadow-sm">
                     🍷 Carta dei Vini
                 </button>
-                <button onclick="switchView('mescita')" id="tab-mescita" class="px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition cursor-pointer text-stone-700 hover:bg-stone-300/50">
+                <button onclick="switchView('mescita')" id="tab-mescita" class="px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition cursor-pointer bg-white text-stone-700 hover:bg-stone-100">
                     🥂 Oggi in mescita
                 </button>
-                <button onclick="switchView('superalcolici')" id="tab-superalcolici" class="px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition cursor-pointer text-stone-700 hover:bg-stone-300/50">
+                <button onclick="switchView('birra')" id="tab-birra" class="px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition cursor-pointer bg-white text-stone-700 hover:bg-stone-100">
+                    🍺 Birra
+                </button>
+                <button onclick="switchView('superalcolici')" id="tab-superalcolici" class="px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition cursor-pointer bg-white text-stone-700 hover:bg-stone-100">
                     🥃 Superalcolici
                 </button>
             </div>
         </div>
 
         <!-- Messaggio di stato ed errori -->
-        <div id="status-loading" class="text-xs text-stone-700 bg-stone-200 p-2.5 rounded-xl mt-3 font-semibold hidden border border-stone-300 max-w-md mx-auto"></div>
+        <div id="status-loading" class="text-xs text-stone-700 bg-stone-200 p-2.5 rounded-xl mt-3 font-semibold border border-stone-300 max-w-md mx-auto">⏳ Caricamento dati in corso...</div>
     </header>
 
     <section class="mb-8 space-y-4">
-        
-        <!-- Tasti Tipologia Vini (Visibili solo in Carta e Mescita) -->
+        <!-- Filtri vino con lo stesso stile dei tab principali e sfondo rosa del logo -->
         <div id="wine-filters-section">
-            <div id="wine-type-buttons" class="grid grid-cols-4 sm:flex sm:flex-wrap items-center justify-center gap-1.5 py-1">
-                <button onclick="filterType('Tutti', this)" class="cat-btn col-span-2 sm:col-span-auto px-3 py-2 sm:py-1.5 bg-stone-900 text-white rounded-full text-[11px] font-bold uppercase tracking-wider shadow-sm cursor-pointer">Tutti</button>
-                <button onclick="filterType('rosso', this)" class="cat-btn col-span-2 sm:col-span-auto px-3 py-2 sm:py-1.5 bg-white text-stone-700 hover:bg-stone-200 rounded-full text-[11px] font-bold uppercase tracking-wider transition border border-stone-300 cursor-pointer">Rossi</button>
-                <button onclick="filterType('bianco', this)" class="cat-btn col-span-2 sm:col-span-auto px-3 py-2 sm:py-1.5 bg-white text-stone-700 hover:bg-stone-200 rounded-full text-[11px] font-bold uppercase tracking-wider transition border border-stone-300 cursor-pointer">Bianchi</button>
-                <button onclick="filterType('arancione', this)" class="cat-btn col-span-2 sm:col-span-auto px-3 py-2 sm:py-1.5 bg-white text-stone-700 hover:bg-stone-200 rounded-full text-[11px] font-bold uppercase tracking-wider transition border border-stone-300 cursor-pointer">Arancione</button>
-                <button onclick="filterType('rosa', this)" class="cat-btn col-span-2 sm:col-span-auto px-3 py-2 sm:py-1.5 bg-white text-stone-700 hover:bg-stone-200 rounded-full text-[11px] font-bold uppercase tracking-wider transition border border-stone-300 cursor-pointer">Rosa</button>
-                <button onclick="filterType('franciacorta', this)" class="cat-btn col-span-2 sm:col-span-auto px-3 py-2 sm:py-1.5 bg-white text-stone-700 hover:bg-stone-200 rounded-full text-[11px] font-bold uppercase tracking-wider transition border border-stone-300 cursor-pointer">Franciacorta</button>
-                <button onclick="filterType('altre bolle', this)" class="cat-btn col-span-2 sm:col-span-auto px-3 py-2 sm:py-1.5 bg-white text-stone-700 hover:bg-stone-200 rounded-full text-[11px] font-bold uppercase tracking-wider transition border border-stone-300 cursor-pointer">Altre Bolle</button>
-                <button onclick="filterType('champagne', this)" class="cat-btn col-span-2 sm:col-span-auto px-3 py-2 sm:py-1.5 bg-white text-stone-700 hover:bg-stone-200 rounded-full text-[11px] font-bold uppercase tracking-wider transition border border-stone-300 cursor-pointer">Champagne</button>
+            <div id="wine-type-buttons" class="flex flex-wrap items-center justify-center gap-1.5 py-1 p-1.5 rounded-2xl shadow-sm" style="background-color: #f472b6;">
+                <button onclick="filterType('Tutti', this)" class="cat-btn px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition cursor-pointer bg-stone-900 text-white shadow-sm">Tutti</button>
+                <button onclick="filterType('bianco', this)" class="cat-btn px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition cursor-pointer bg-white text-stone-700 hover:bg-stone-100">Bianchi</button>
+                <button onclick="filterType('bolle', this)" class="cat-btn px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition cursor-pointer bg-white text-stone-700 hover:bg-stone-100">Bolle</button>
+                <button onclick="filterType('rosso', this)" class="cat-btn px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition cursor-pointer bg-white text-stone-700 hover:bg-stone-100">Rossi</button>
+                <button onclick="filterType('rosa', this)" class="cat-btn px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition cursor-pointer bg-white text-stone-700 hover:bg-stone-100">Rosa</button>
             </div>
         </div>
 
-        <!-- Tasti Categoria Superalcolici -->
+        <div id="beer-filters-section" class="hidden">
+            <div id="beer-type-buttons" class="flex flex-wrap items-center justify-center gap-1.5 py-1"></div>
+        </div>
+
         <div id="spirits-filters-section" class="hidden">
-            <div id="spirits-type-buttons" class="flex flex-wrap items-center justify-center gap-1.5 py-1">
-                <!-- Generato dinamicamente via JS -->
-            </div>
+            <div id="spirits-type-buttons" class="flex flex-wrap items-center justify-center gap-1.5 py-1"></div>
         </div>
 
-        <!-- Barra di Ricerca Testuale -->
-        <div class="relative pt-1">
-            <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pt-1 pointer-events-none text-stone-400 text-sm">🔍</span>
-            <input type="text" id="search-input" oninput="handleSearch()" placeholder="Cerca nella carta..." class="w-full pl-10 pr-4 py-2.5 bg-white border border-stone-300 rounded-xl text-xs font-semibold text-stone-900 placeholder-stone-400 focus:outline-none focus:border-stone-500 transition shadow-xs">
-        </div>
-
-        <!-- Filtri Prezzo e Tasto Random -->
-        <div id="price-and-random-section" class="flex flex-col sm:flex-row gap-3 pt-1 border-t border-stone-300">
-            <div class="flex gap-2 flex-1">
-                <button onclick="filterPrice('ECONOMY')" id="btn-economy" class="price-btn flex-1 py-2.5 bg-white text-stone-700 border border-stone-300 rounded-xl text-xs font-bold tracking-widest transition active:scale-95 shadow-xs cursor-pointer hover:border-stone-400">
-                    💰 ECONOMY <span class="block text-[10px] font-semibold tracking-normal text-stone-500">Fino a 30€</span>
-                </button>
-                <button onclick="filterPrice('BUSINESS')" id="btn-business" class="price-btn flex-1 py-2.5 bg-white text-stone-700 border border-stone-300 rounded-xl text-xs font-bold tracking-widest transition active:scale-95 shadow-xs cursor-pointer hover:border-stone-400">
-                    💼 BUSINESS <span class="block text-[10px] font-semibold tracking-normal text-stone-500">31€ - 50€</span>
-                </button>
-                <button onclick="filterPrice('POWER')" id="btn-power" class="price-btn flex-1 py-2.5 bg-white text-stone-700 border border-stone-300 rounded-xl text-xs font-bold tracking-widest transition active:scale-95 shadow-xs cursor-pointer hover:border-stone-400">
-                    ⚡ POWER <span class="block text-[10px] font-semibold tracking-normal text-stone-500">Sopra 50€</span>
-                </button>
-            </div>
-            <button onclick="suggestRandomWine()" class="w-full sm:w-auto px-6 py-2.5 bg-[#b08968] hover:bg-[#9c7657] text-white rounded-xl text-xs font-black tracking-wider transition active:scale-95 shadow-md uppercase cursor-pointer">
+        <!-- Tasto Random con sfondo azzurro, testo bianco e traccia rosa -->
+        <div id="random-btn-container" class="flex justify-center pt-1">
+            <button onclick="suggestRandomWine()" id="btn-random" class="w-full sm:w-auto px-6 py-2.5 rounded-xl text-xs font-black tracking-wider transition active:scale-95 shadow-md uppercase cursor-pointer random-text-stroke" style="background-color: #38bdf8;">
                 MA CHE NE SO. FAI TU.
             </button>
         </div>
     </section>
 
-    <main id="wine-list" class="grid grid-cols-1 md:grid-cols-2 gap-5">
-    </main>
+    <main id="wine-list" class="grid grid-cols-1 md:grid-cols-2 gap-5"></main>
 
-    <!-- Modale Dettaglio -->
+    <!-- Modale -->
     <div id="wine-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden z-50 items-center justify-center p-4" onclick="closeModal()">
         <div class="bg-white text-stone-900 p-6 md:p-8 rounded-3xl max-w-lg w-full border border-stone-200 shadow-2xl relative" onclick="event.stopPropagation()">
             <button onclick="closeModal()" class="absolute top-4 right-4 text-stone-400 hover:text-stone-900 text-2xl font-sans">&times;</button>
             <div id="modal-badge-container" class="flex flex-wrap gap-1"></div>
             
-            <h3 id="modal-wine-cantina" class="font-handwriting text-3xl md:text-4xl text-[#b08968] mt-3 font-bold leading-tight"></h3>
-            <p id="modal-wine-name" class="text-stone-800 text-base mt-1 font-semibold"></p>
+            <h3 id="modal-wine-cantina" class="wine-title-cubao text-2xl md:text-3xl text-[#b08968] mt-3 font-bold leading-tight"></h3>
+            <p id="modal-wine-name" class="wine-title-cubao text-stone-800 text-sm mt-1 font-semibold"></p>
             <p id="modal-wine-uve" class="text-stone-600 text-xs mt-2 font-medium flex items-center gap-1"></p>
             
             <div class="border-t border-stone-200 my-4 pt-4 space-y-2 text-sm text-stone-700">
                 <p id="modal-wine-geo"></p>
                 <div class="flex justify-between items-center pt-1">
-                    <span id="modal-price-label" class="text-stone-500 text-xs uppercase tracking-wider font-bold">Prezzo Bottiglia</span>
+                    <span id="modal-price-label" class="text-stone-500 text-xs uppercase tracking-wider font-bold">Prezzo</span>
                     <p id="modal-wine-price" class="text-[#b08968] font-bold text-lg"></p>
                 </div>
             </div>
             <div id="modal-desc-box" class="bg-stone-100 p-4 rounded-xl border border-stone-200 mt-4 hidden">
-                <h4 class="text-xs uppercase tracking-wider text-[#b08968] font-bold mb-2 font-sans">Nota di Degustazione</h4>
+                <h4 id="modal-desc-title" class="text-xs uppercase tracking-wider text-[#b08968] font-bold mb-2 font-sans">Nota</h4>
                 <p id="modal-wine-desc" class="text-base text-stone-700 leading-relaxed italic"></p>
             </div>
         </div>
@@ -134,17 +149,9 @@
     <script>
         const GOOGLE_SHEET_URL = "https://docs.google.com/spreadsheets/d/1UT4XCg9_NTM1otqoqU8HhwI14l1ulWnO7WEDF8wN1sc/edit?gid=494726101#gid=494726101";
         
-        let wines = [];
-        let spirits = [];
-        
-        let currentView = 'carta'; 
-        let currentFilter = 'Tutti';
-        let currentSpiritFilter = 'Tutti';
-        let currentPriceFilter = 'Tutti'; 
-        let searchQuery = '';
-        
-        let isWineLoaded = false;
-        let isSpiritsLoaded = false;
+        let wines = [], beers = [], spirits = [];
+        let currentView = 'carta', currentFilter = 'Tutti', currentBeerFilter = 'Tutti', currentSpiritFilter = 'Tutti';
+        let isWineLoaded = false, isBeerLoaded = false, isSpiritsLoaded = false;
 
         function shuffleArray(array) {
             let currentIndex = array.length, randomIndex;
@@ -159,313 +166,259 @@
         function parsePrice(val) {
             if (val === undefined || val === null || val === '') return 0;
             if (typeof val === 'number') return val;
-            let str = String(val).replace(',', '.').replace(/[^0-9.-]+/g, "");
-            let num = parseFloat(str);
+            let num = parseFloat(String(val).replace(',', '.').replace(/[^0-9.-]+/g, ""));
             return isNaN(num) ? 0 : num;
+        }
+
+        function getBorderClass(tipo) {
+            if (!tipo) return 'border-grigio';
+            const t = tipo.toLowerCase().trim();
+            if (t === 'bianco') return 'border-giallo';
+            if (t === 'rosso') return 'border-rosso';
+            if (t === 'rosa') return 'border-rosa';
+            if (t === 'bolle') return 'border-grigio';
+            if (t === 'amaro') return 'border-viola';
+            if (t === 'gintonic') return 'border-blu';
+            if (t === 'liquore') return 'border-nero';
+            if (t === 'mezcal') return 'border-verde';
+            if (t === 'rum') return 'border-bianco';
+            if (t === 'sotol') return 'border-rosso';
+            if (t === 'tequila') return 'border-grigio';
+            if (t === 'whisky') return 'border-marrone';
+            return 'border-giallo';
         }
 
         window.googleDocCallback = function(data) {
             isWineLoaded = true;
-            const statusEl = document.getElementById('status-loading');
             try {
-                if (!data || !data.table || !data.table.rows) {
-                    statusEl.innerText = "⚠️ Il foglio Google dei vini è vuoto o non accessibile pubblicamente.";
-                    statusEl.classList.remove('hidden');
-                    return;
+                if (data && data.table && data.table.rows) {
+                    const rows = data.table.rows;
+                    const cols = data.table.cols.map(c => c.label ? c.label.toLowerCase().trim() : '');
+                    const validRows = rows.filter(row => row && row.c && row.c[cols.indexOf('nome')] && row.c[cols.indexOf('nome')].v);
+                    wines = shuffleArray(validRows.map(row => {
+                        const obj = {};
+                        row.c.forEach((cell, i) => { if (cols[i]) obj[cols[i]] = cell ? cell.v : ''; });
+                        return {
+                            cantina: obj.cantina ? String(obj.cantina).toUpperCase().trim() : '',
+                            nome: obj.nome ? String(obj.nome).toUpperCase().trim() : '',
+                            tipo: obj.tipo ? String(obj.tipo).toLowerCase().trim() : '',
+                            regione: obj.regione ? String(obj.regione).toUpperCase().trim() : '',
+                            zona: obj.zona ? String(obj.zona).toUpperCase().trim() : '',
+                            uve: obj.uve ? String(obj.uve).toUpperCase().trim() : '',
+                            anno: obj.anno ? parseInt(obj.anno) : '',
+                            prezzo: parsePrice(obj.prezzo),
+                            prezzoBicchiere: parsePrice(obj.bicchiere),
+                            disponibile: obj.disponibile !== undefined ? String(obj.disponibile).toUpperCase().trim() !== 'FALSE' : true,
+                            doc: obj.doc ? String(obj.doc).toUpperCase().trim() : '',
+                            descrizione: obj.descrizione ? String(obj.descrizione).trim() : '',
+                            sottotipo: obj.sottotipo ? String(obj.sottotipo).toUpperCase().trim() : '',
+                        };
+                    }));
                 }
-                const rows = data.table.rows;
-                const cols = data.table.cols.map(c => c.label ? c.label.toLowerCase().trim() : '');
-                
-                const validRows = rows.filter(row => row && row.c && row.c[cols.indexOf('nome')] && row.c[cols.indexOf('nome')].v);
-                wines = shuffleArray(validRows.map(row => {
-                    const obj = {};
-                    row.c.forEach((cell, i) => { if (cols[i]) obj[cols[i]] = cell ? cell.v : ''; });
-                    
-                    const checkBool = (val) => val !== undefined && val !== null && String(val).toUpperCase().trim() === 'TRUE';
-                    const prezzoBicchiereVal = parsePrice(obj.bicchiere);
+            } catch (e) { console.error("Errore vini", e); }
+            checkLoadingStatus();
+        };
 
-                    return {
-                        cantina: obj.cantina ? String(obj.cantina).trim() : '',
-                        nome: obj.nome ? String(obj.nome).trim() : '',
-                        tipo: obj.tipo ? String(obj.tipo).toLowerCase().trim() : '',
-                        regione: obj.regione ? String(obj.regione).trim() : '',
-                        zona: obj.zona ? String(obj.zona).trim() : '',
-                        uve: obj.uve ? String(obj.uve).trim() : '',
-                        anno: obj.anno ? parseInt(obj.anno) : '',
-                        prezzo: parsePrice(obj.prezzo),
-                        prezzoBicchiere: prezzoBicchiereVal,
-                        disponibile: obj.disponibile !== undefined ? checkBool(obj.disponibile) : true,
-                        doc: obj.doc ? String(obj.doc).trim() : '',
-                        descrizione: obj.descrizione ? String(obj.descrizione).trim() : '',
-                        sottotipo: obj.sottotipo ? String(obj.sottotipo).trim() : '',
-                    };
-                }));
-
-                if (currentView !== 'superalcolici') renderContent();
-                checkLoadingStatus();
-            } catch (error) {
-                console.error(error);
-                statusEl.innerText = "❌ Errore nell'elaborazione dei dati dei vini.";
-                statusEl.classList.remove('hidden');
-            }
+        window.googleBeerCallback = function(data) {
+            isBeerLoaded = true;
+            try {
+                if (data && data.table && data.table.rows) {
+                    const rows = data.table.rows;
+                    const cols = data.table.cols.map(c => c.label ? c.label.toLowerCase().trim() : '');
+                    const validRows = rows.filter(row => row && row.c && row.c[cols.indexOf('nome')] && row.c[cols.indexOf('nome')].v);
+                    beers = validRows.map(row => {
+                        const obj = {};
+                        row.c.forEach((cell, i) => { if (cols[i]) obj[cols[i]] = cell ? cell.v : ''; });
+                        return {
+                            birrificio: obj.birrificio ? String(obj.birrificio).toUpperCase().trim() : '',
+                            nome: obj.nome ? String(obj.nome).toUpperCase().trim() : '',
+                            tipologia: obj.tipologia ? String(obj.tipologia).toUpperCase().trim() : 'ALTRO',
+                            volume: obj.volume ? String(obj.volume).toUpperCase().trim() : '',
+                            alcol: obj.alcol ? String(obj.alcol).toUpperCase().trim() : '',
+                            prezzo: parsePrice(obj.prezzo),
+                            disponibile: obj.disponibile !== undefined ? String(obj.disponibile).toUpperCase().trim() !== 'FALSE' : true,
+                            descrizione: obj.descrizione ? String(obj.descrizione).trim() : '',
+                        };
+                    });
+                    buildBeerFilterButtons();
+                }
+            } catch (e) { console.error("Errore birre", e); }
+            checkLoadingStatus();
         };
 
         window.googleSpiritsCallback = function(data) {
             isSpiritsLoaded = true;
             try {
-                if (!data || !data.table || !data.table.rows) return;
-                const rows = data.table.rows;
-                const cols = data.table.cols.map(c => c.label ? c.label.toLowerCase().trim() : '');
-                
-                const validRows = rows.filter(row => row && row.c && row.c[cols.indexOf('nome')] && row.c[cols.indexOf('nome')].v);
-                spirits = validRows.map(row => {
-                    const obj = {};
-                    row.c.forEach((cell, i) => { if (cols[i]) obj[cols[i]] = cell ? cell.v : ''; });
-                    const checkBool = (val) => val !== undefined && val !== null && String(val).toUpperCase().trim() === 'TRUE';
-
-                    return {
-                        cantina: obj.produttore ? String(obj.produttore).trim() : (obj.cantina ? String(obj.cantina).trim() : ''),
-                        nome: obj.nome ? String(obj.nome).trim() : '',
-                        categoria: obj.categoria ? String(obj.categoria).trim() : 'Altro',
-                        prezzo: parsePrice(obj.prezzo),
-                        disponibile: obj.disponibile !== undefined ? checkBool(obj.disponibile) : true,
-                        descrizione: obj.descrizione ? String(obj.descrizione).trim() : '',
-                    };
-                });
-                buildSpiritsFilterButtons();
-                if (currentView === 'superalcolici') renderContent();
-                checkLoadingStatus();
-            } catch (error) {
-                console.error("Errore superalcolici:", error);
-            }
+                if (data && data.table && data.table.rows) {
+                    const rows = data.table.rows;
+                    const cols = data.table.cols.map(c => c.label ? c.label.toLowerCase().trim() : '');
+                    const validRows = rows.filter(row => row && row.c && row.c[cols.indexOf('nome')] && row.c[cols.indexOf('nome')].v);
+                    spirits = validRows.map(row => {
+                        const obj = {};
+                        row.c.forEach((cell, i) => { if (cols[i]) obj[cols[i]] = cell ? cell.v : ''; });
+                        return {
+                            cantina: obj.produttore ? String(obj.produttore).toUpperCase().trim() : (obj.cantina ? String(obj.cantina).toUpperCase().trim() : ''),
+                            nome: obj.nome ? String(obj.nome).toUpperCase().trim() : '',
+                            categoria: obj.categoria ? String(obj.categoria).toUpperCase().trim() : 'ALTRO',
+                            prezzo: parsePrice(obj.prezzo),
+                            disponibile: obj.disponibile !== undefined ? String(obj.disponibile).toUpperCase().trim() !== 'FALSE' : true,
+                            descrizione: obj.descrizione ? String(obj.descrizione).trim() : '',
+                        };
+                    });
+                    buildSpiritsFilterButtons();
+                }
+            } catch (e) { console.error("Errore superalcolici", e); }
+            checkLoadingStatus();
         };
 
         function checkLoadingStatus() {
-            if (isWineLoaded && isSpiritsLoaded) {
+            if (isWineLoaded && isBeerLoaded && isSpiritsLoaded) {
                 document.getElementById('status-loading').classList.add('hidden');
+                renderContent();
             }
         }
 
         function loadDataViaJSONP() {
-            const statusEl = document.getElementById('status-loading');
             const matches = GOOGLE_SHEET_URL.match(/\/d\/([^/]+)/);
-            if (!matches || !matches[1]) { 
-                statusEl.innerText = "❌ Link del Google Sheet non valido."; 
-                statusEl.classList.remove('hidden');
-                return; 
-            }
+            if (!matches) return;
             
-            statusEl.innerText = "⏳ Caricamento dati in corso...";
-            statusEl.classList.remove('hidden');
-            
-            const scriptWine = document.createElement('script');
-            scriptWine.src = `https://docs.google.com/spreadsheets/d/${matches[1]}/gviz/tq?tqx=responseHandler:googleDocCallback&t=${Date.now()}`;
-            document.body.appendChild(scriptWine);
-
-            const scriptSpirits = document.createElement('script');
-            scriptSpirits.src = `https://docs.google.com/spreadsheets/d/${matches[1]}/gviz/tq?sheet=superalcolici&tqx=responseHandler:googleSpiritsCallback&t=${Date.now()}`;
-            document.body.appendChild(scriptSpirits);
+            const ts = Date.now();
+            ['', 'birra', 'superalcolici'].forEach((sheet, idx) => {
+                const s = document.createElement('script');
+                const cb = idx === 0 ? 'googleDocCallback' : (idx === 1 ? 'googleBeerCallback' : 'googleSpiritsCallback');
+                s.src = `https://docs.google.com/spreadsheets/d/${matches[1]}/gviz/tq?${sheet ? 'sheet=' + sheet + '&' : ''}tqx=responseHandler:${cb}&t=${ts}`;
+                document.body.appendChild(s);
+            });
         }
 
         function switchView(view) {
             currentView = view;
-            searchQuery = '';
-            document.getElementById('search-input').value = '';
 
-            const tabCarta = document.getElementById('tab-carta');
-            const tabMescita = document.getElementById('tab-mescita');
-            const tabSuperalcolici = document.getElementById('tab-superalcolici');
+            ['carta', 'mescita', 'birra', 'superalcolici'].forEach(v => {
+                const btn = document.getElementById(`tab-${v}`);
+                btn.className = v === view 
+                    ? "px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition cursor-pointer bg-stone-900 text-white shadow-sm"
+                    : "px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition cursor-pointer bg-white text-stone-700 hover:bg-stone-100";
+            });
 
-            const activeTabClass = "px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition cursor-pointer bg-stone-900 text-white shadow-sm";
-            const inactiveTabClass = "px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition cursor-pointer text-stone-700 hover:bg-stone-300/50";
-
-            tabCarta.className = view === 'carta' ? activeTabClass : inactiveTabClass;
-            tabMescita.className = view === 'mescita' ? activeTabClass : inactiveTabClass;
-            tabSuperalcolici.className = view === 'superalcolici' ? activeTabClass : inactiveTabClass;
-
-            const wineFilters = document.getElementById('wine-filters-section');
-            const spiritsFilters = document.getElementById('spirits-filters-section');
-            const priceAndRandom = document.getElementById('price-and-random-section');
-
-            if (view === 'superalcolici') {
-                wineFilters.classList.add('hidden');
-                spiritsFilters.classList.remove('hidden');
-                priceAndRandom.classList.add('hidden');
-            } else {
-                wineFilters.classList.remove('hidden');
-                spiritsFilters.classList.add('hidden');
-                priceAndRandom.classList.remove('hidden');
-            }
+            document.getElementById('wine-filters-section').classList.toggle('hidden', view === 'superalcolici' || view === 'birra');
+            document.getElementById('beer-filters-section').classList.toggle('hidden', view !== 'birra');
+            document.getElementById('spirits-filters-section').classList.toggle('hidden', view !== 'superalcolici');
+            document.getElementById('random-btn-container').classList.toggle('hidden', view === 'superalcolici' || view === 'birra');
 
             renderContent();
         }
 
-        function filterType(type, element) {
+        function filterType(type, el) {
             currentFilter = type;
-            updateButtonStyles(type, element);
+            document.querySelectorAll('#wine-type-buttons .cat-btn').forEach(b => b.className = "cat-btn px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition cursor-pointer bg-white text-stone-700 hover:bg-stone-100");
+            if(el) el.className = "cat-btn px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition cursor-pointer bg-stone-900 text-white shadow-sm";
             renderContent();
         }
 
-        function filterSpiritCategory(cat, element) {
+        function filterBeerCategory(cat, el) {
+            currentBeerFilter = cat;
+            document.querySelectorAll('#beer-type-buttons .beer-cat-btn').forEach(b => b.className = "beer-cat-btn px-3 py-1.5 bg-white text-stone-700 hover:bg-stone-200 rounded-full text-[11px] font-bold uppercase tracking-wider transition border border-stone-300 cursor-pointer");
+            if(el) el.className = "beer-cat-btn px-3 py-1.5 bg-stone-900 text-white rounded-full text-[11px] font-bold uppercase tracking-wider shadow-sm cursor-pointer";
+            renderContent();
+        }
+
+        function filterSpiritCategory(cat, el) {
             currentSpiritFilter = cat;
-            updateSpiritButtonStyles(element);
+            document.querySelectorAll('#spirits-type-buttons .spirit-cat-btn').forEach(b => b.className = "spirit-cat-btn px-3 py-1.5 bg-white text-stone-700 hover:bg-stone-200 rounded-full text-[11px] font-bold uppercase tracking-wider transition border border-stone-300 cursor-pointer");
+            if(el) el.className = "spirit-cat-btn px-3 py-1.5 bg-stone-900 text-white rounded-full text-[11px] font-bold uppercase tracking-wider shadow-sm cursor-pointer";
             renderContent();
         }
 
-        function updateButtonStyles(activeType, element) {
-            document.querySelectorAll('#wine-type-buttons .cat-btn').forEach(btn => {
-                btn.className = "cat-btn col-span-2 sm:col-span-auto px-3 py-2 sm:py-1.5 bg-white text-stone-700 hover:bg-stone-200 rounded-full text-[11px] font-bold uppercase tracking-wider transition border border-stone-300 focus:outline-none cursor-pointer";
-            });
-            if (element) {
-                element.className = "cat-btn col-span-2 sm:col-span-auto px-3 py-2 sm:py-1.5 bg-stone-900 text-white rounded-full text-[11px] font-bold uppercase tracking-wider shadow-sm focus:outline-none cursor-pointer";
-            }
-        }
-
-        function updateSpiritButtonStyles(element) {
-            document.querySelectorAll('#spirits-type-buttons .spirit-cat-btn').forEach(btn => {
-                btn.className = "spirit-cat-btn px-3 py-1.5 bg-white text-stone-700 hover:bg-stone-200 rounded-full text-[11px] font-bold uppercase tracking-wider transition border border-stone-300 focus:outline-none cursor-pointer";
-            });
-            if (element) {
-                element.className = "spirit-cat-btn px-3 py-1.5 bg-stone-900 text-white rounded-full text-[11px] font-bold uppercase tracking-wider shadow-sm focus:outline-none cursor-pointer";
-            }
+        function buildBeerFilterButtons() {
+            const container = document.getElementById('beer-type-buttons');
+            const cats = [...new Set(beers.map(b => b.tipologia).filter(Boolean))].sort();
+            let html = `<button onclick="filterBeerCategory('Tutti', this)" class="beer-cat-btn px-3 py-1.5 bg-stone-900 text-white rounded-full text-[11px] font-bold uppercase tracking-wider shadow-sm cursor-pointer">Tutti</button>`;
+            cats.forEach(c => html += `<button onclick="filterBeerCategory('${c.toLowerCase()}', this)" class="beer-cat-btn px-3 py-1.5 bg-white text-stone-700 hover:bg-stone-200 rounded-full text-[11px] font-bold uppercase tracking-wider transition border border-stone-300 cursor-pointer">${c}</button>`);
+            container.innerHTML = html;
         }
 
         function buildSpiritsFilterButtons() {
             const container = document.getElementById('spirits-type-buttons');
-            const categories = [...new Set(spirits.map(s => s.categoria).filter(Boolean))].sort();
-            
-            let html = `<button onclick="filterSpiritCategory('Tutti', this)" class="spirit-cat-btn px-3 py-1.5 bg-stone-900 text-white rounded-full text-[11px] font-bold uppercase tracking-wider shadow-sm focus:outline-none cursor-pointer">Tutti</button>`;
-            categories.forEach(cat => {
-                html += `<button onclick="filterSpiritCategory('${cat}', this)" class="spirit-cat-btn px-3 py-1.5 bg-white text-stone-700 hover:bg-stone-200 rounded-full text-[11px] font-bold uppercase tracking-wider transition border border-stone-300 focus:outline-none cursor-pointer">${cat}</button>`;
-            });
+            const cats = [...new Set(spirits.map(s => s.categoria).filter(Boolean))].sort();
+            let html = `<button onclick="filterSpiritCategory('Tutti', this)" class="spirit-cat-btn px-3 py-1.5 bg-stone-900 text-white rounded-full text-[11px] font-bold uppercase tracking-wider shadow-sm cursor-pointer">Tutti</button>`;
+            cats.forEach(c => html += `<button onclick="filterSpiritCategory('${c.toLowerCase()}', this)" class="spirit-cat-btn px-3 py-1.5 bg-white text-stone-700 hover:bg-stone-200 rounded-full text-[11px] font-bold uppercase tracking-wider transition border border-stone-300 cursor-pointer">${c}</button>`);
             container.innerHTML = html;
         }
 
-        function filterPrice(mode) {
-            const btnEconomy = document.getElementById('btn-economy');
-            const btnBusiness = document.getElementById('btn-business');
-            const btnPower = document.getElementById('btn-power');
-
-            const defaultClass = "price-btn flex-1 py-2.5 bg-white text-stone-700 border border-stone-300 rounded-xl text-xs font-bold tracking-widest transition active:scale-95 shadow-xs cursor-pointer hover:border-stone-400";
-            btnEconomy.className = defaultClass;
-            btnBusiness.className = defaultClass;
-            btnPower.className = defaultClass;
-
-            if (currentPriceFilter === mode) {
-                currentPriceFilter = 'Tutti';
-            } else {
-                currentPriceFilter = mode;
-                const activeBtn = mode === 'ECONOMY' ? btnEconomy : (mode === 'BUSINESS' ? btnBusiness : btnPower);
-                activeBtn.className = "price-btn flex-1 py-2.5 bg-stone-900 text-white border-stone-900 rounded-xl text-xs font-bold tracking-widest transition active:scale-95 shadow-md cursor-pointer";
-            }
-            renderContent();
-        }
-
-        function handleSearch() {
-            const input = document.getElementById('search-input');
-            searchQuery = input.value.toLowerCase().trim();
-            renderContent();
-        }
-
         function suggestRandomWine() {
-            if (wines.length === 0) return;
-            
-            const eligibleWines = wines.filter(w => {
+            if (currentView === 'superalcolici' || currentView === 'birra') return;
+            const eligible = wines.filter(w => {
                 if (!w.disponibile) return false;
                 if (currentView === 'mescita' && w.prezzoBicchiere <= 0) return false;
-
-                let matchesFilter = false;
-                const activeFilterLower = currentFilter.toLowerCase().trim();
-                const wineTipoLower = w.tipo ? w.tipo.toLowerCase().trim() : '';
-                
-                if (activeFilterLower === 'tutti') { 
-                    matchesFilter = true; 
-                } else if (activeFilterLower === 'champagne') {
-                    matchesFilter = w.champagne === true || wineTipoLower === 'champagne';
-                } else { 
-                    matchesFilter = wineTipoLower === activeFilterLower; 
-                }
-
-                let targetPrice = currentView === 'mescita' ? w.prezzoBicchiere : w.prezzo;
-                let matchesPrice = true;
-                if (currentPriceFilter === 'ECONOMY') matchesPrice = targetPrice <= 30;
-                if (currentPriceFilter === 'BUSINESS') matchesPrice = targetPrice >= 31 && targetPrice <= 50;
-                if (currentPriceFilter === 'POWER') matchesPrice = targetPrice > 50;
-
-                let matchesSearch = true;
-                if (searchQuery) {
-                    const fullText = `${w.cantina} ${w.nome} ${w.uve} ${w.regione} ${w.zona} ${w.doc} ${w.anno}`.toLowerCase();
-                    matchesSearch = fullText.includes(searchQuery);
-                }
-
-                return matchesFilter && matchesPrice && matchesSearch;
+                if (currentFilter !== 'Tutti' && w.tipo !== currentFilter.toLowerCase()) return false;
+                return true;
             });
-
-            if (eligibleWines.length === 0) {
-                alert("Nessun vino disponibile corrisponde ai filtri e alla ricerca attualmente selezionati.");
+            if (eligible.length === 0) {
+                alert("Nessun vino disponibile corrisponde ai filtri attuali.");
                 return;
             }
-
-            const randomIndex = Math.floor(Math.random() * eligibleWines.length);
-            const selectedWine = eligibleWines[randomIndex];
-            
-            const globalIndex = wines.findIndex(w => w.nome === selectedWine.nome && w.cantina === selectedWine.cantina && w.anno === selectedWine.anno);
-            if (globalIndex !== -1) { openModal(globalIndex, 'wine'); }
+            const rand = eligible[Math.floor(Math.random() * eligible.length)];
+            const index = wines.findIndex(w => w.nome === rand.nome && w.cantina === rand.cantina);
+            if (index !== -1) openModal(index, 'wine');
         }
 
-        function openModal(index, type = 'wine') {
-            if (type === 'spirit') {
+        function openModal(index, type) {
+            const box = document.getElementById('wine-modal');
+            const badge = document.getElementById('modal-badge-container');
+            const cantina = document.getElementById('modal-wine-cantina');
+            const name = document.getElementById('modal-wine-name');
+            const uve = document.getElementById('modal-wine-uve');
+            const geo = document.getElementById('modal-wine-geo');
+            const priceLabel = document.getElementById('modal-price-label');
+            const price = document.getElementById('modal-wine-price');
+            const descBox = document.getElementById('modal-desc-box');
+            const desc = document.getElementById('modal-wine-desc');
+
+            if (type === 'beer') {
+                const b = beers[index];
+                if (!b) return;
+                badge.innerHTML = `<span class="text-[9px] font-medium px-2 py-0.5 rounded-full uppercase tracking-wider bg-stone-200 text-stone-700 border border-stone-300">${b.tipologia}</span>`;
+                cantina.innerText = b.birrificio;
+                name.innerText = b.nome;
+                uve.innerHTML = `VOLUME: ${b.volume || 'N/D'} &bull; ALCOL: ${b.alcol || 'N/D'}`;
+                geo.innerHTML = '';
+                priceLabel.innerText = 'Prezzo';
+                price.innerText = `${b.prezzo.toFixed(2)} €`;
+                if (b.descrizione) {
+                    desc.innerText = b.descrizione;
+                    descBox.classList.remove('hidden');
+                } else { descBox.classList.add('hidden'); }
+            } else if (type === 'spirit') {
                 const s = spirits[index];
                 if (!s) return;
-                document.getElementById('modal-badge-container').innerHTML = `<span class="text-[9px] font-medium px-2 py-0.5 rounded-full uppercase tracking-wider bg-stone-200 text-stone-700 border border-stone-300">${s.categoria || 'Superalcolico'}</span>`;
-                document.getElementById('modal-wine-cantina').innerText = s.cantina || '';
-                document.getElementById('modal-wine-name').innerText = s.nome;
-                document.getElementById('modal-wine-uve').innerHTML = '';
-                document.getElementById('modal-wine-geo').innerHTML = '';
-                document.getElementById('modal-price-label').innerText = 'Prezzo';
-                document.getElementById('modal-wine-price').innerText = `${s.prezzo ? s.prezzo.toFixed(2) : '0.00'} €`;
-                
-                const descBox = document.getElementById('modal-desc-box');
-                if (s.descrizione && s.descrizione.length > 0) {
-                    document.getElementById('modal-wine-desc').innerText = s.descrizione;
+                badge.innerHTML = `<span class="text-[9px] font-medium px-2 py-0.5 rounded-full uppercase tracking-wider bg-stone-200 text-stone-700 border border-stone-300">${s.categoria}</span>`;
+                cantina.innerText = s.cantina || s.nome;
+                name.innerText = s.cantina ? s.nome : '';
+                uve.innerHTML = '';
+                geo.innerHTML = '';
+                priceLabel.innerText = 'Prezzo';
+                price.innerText = `${s.prezzo.toFixed(2)} €`;
+                if (s.descrizione) {
+                    desc.innerText = s.descrizione;
                     descBox.classList.remove('hidden');
-                } else {
-                    descBox.classList.add('hidden');
-                }
-                document.getElementById('wine-modal').classList.replace('hidden', 'flex');
-                return;
-            }
-
-            const w = wines[index];
-            if (!w) return;
-            const docBadge = w.doc ? `<span class="text-[10px] font-sans font-bold tracking-wider bg-stone-200 text-stone-800 px-1.5 py-0.5 rounded border border-stone-300 ml-2 uppercase">${w.doc}</span>` : '';
-            let labels = [];
-            if (w.sottotipo) labels.push(w.sottotipo);
-            if (currentView === 'mescita' || w.prezzoBicchiere > 0) labels.push('In Mescita');
-            
-            const badgesHtml = labels.map(l => `<span class="text-[9px] font-medium px-2 py-0.5 rounded-full uppercase tracking-wider bg-stone-200 text-stone-700 border border-stone-300">${l}</span>`).join('') + docBadge;
-            
-            document.getElementById('modal-badge-container').innerHTML = badgesHtml;
-            document.getElementById('modal-wine-cantina').innerText = w.cantina;
-            document.getElementById('modal-wine-name').innerHTML = `${w.nome} <span class="text-sm font-sans text-stone-500 ml-1 font-normal">${w.anno || ''}</span>`;
-            document.getElementById('modal-wine-uve').innerHTML = `🍇 Uve: <span class="text-stone-800 font-sans font-normal">${w.uve || 'N/D'}</span>`;
-            document.getElementById('modal-wine-geo').innerHTML = `📍 Denominazione: <b>${w.zona || 'N/D'}</b> &bull; Regione: <b>${w.regione || 'N/D'}</b>`;
-            
-            const isMescitaView = currentView === 'mescita';
-            document.getElementById('modal-price-label').innerText = isMescitaView ? 'Prezzo Calice' : 'Prezzo Bottiglia';
-            const activePrice = isMescitaView ? w.prezzoBicchiere : w.prezzo;
-            document.getElementById('modal-wine-price').innerText = `${activePrice ? activePrice.toFixed(2) : '0.00'} €`;
-            
-            const descBox = document.getElementById('modal-desc-box');
-            if (w.descrizione && w.descrizione.length > 0) {
-                document.getElementById('modal-wine-desc').innerText = w.descrizione;
-                descBox.classList.remove('hidden');
+                } else { descBox.classList.add('hidden'); }
             } else {
-                descBox.classList.add('hidden');
+                const w = wines[index];
+                if (!w) return;
+                badge.innerHTML = `<span class="text-[9px] font-medium px-2 py-0.5 rounded-full uppercase tracking-wider bg-stone-200 text-stone-700 border border-stone-300">${w.sottotipo || 'VINO'}</span>`;
+                cantina.innerText = w.cantina;
+                name.innerHTML = `${w.nome} <span class="text-sm font-sans text-stone-500 ml-1 font-normal">${w.anno || ''}</span>`;
+                uve.innerHTML = `UVE: <span class="text-stone-800">${w.uve || 'N/D'}</span>`;
+                geo.innerHTML = `DENOMINAZIONE: <b>${w.zona || 'N/D'}</b> &bull; REGIONE: <b>${w.regione || 'N/D'}</b>`;
+                priceLabel.innerText = currentView === 'mescita' ? 'Prezzo Calice' : 'Prezzo Bottiglia';
+                price.innerText = `${(currentView === 'mescita' ? w.prezzoBicchiere : w.prezzo).toFixed(2)} €`;
+                if (w.descrizione) {
+                    desc.innerText = w.descrizione;
+                    descBox.classList.remove('hidden');
+                } else { descBox.classList.add('hidden'); }
             }
-            
-            document.getElementById('wine-modal').classList.replace('flex', 'hidden'); // Sicurezza reset
-            document.getElementById('wine-modal').classList.replace('hidden', 'flex');
+            box.classList.replace('hidden', 'flex');
         }
 
         function closeModal() { document.getElementById('wine-modal').classList.replace('flex', 'hidden'); }
@@ -474,131 +427,103 @@
             const container = document.getElementById('wine-list');
             container.innerHTML = '';
 
-            if (currentView === 'superalcolici') {
-                let filteredSpirits = spirits.map((s, index) => ({...s, originalIndex: index})).filter(s => {
-                    if (!s.disponibile) return false;
-                    let matchesCat = currentSpiritFilter === 'Tutti' || s.categoria.toLowerCase() === currentSpiritFilter.toLowerCase();
-                    let matchesSearch = true;
-                    if (searchQuery) {
-                        const fullText = `${s.cantina} ${s.nome} ${s.categoria} ${s.descrizione}`.toLowerCase();
-                        matchesSearch = fullText.includes(searchQuery);
-                    }
-                    return matchesCat && matchesSearch;
+            if (currentView === 'birra') {
+                const filtered = beers.map((b, i) => ({...b, originalIndex: i})).filter(b => {
+                    if (!b.disponibile) return false;
+                    if (currentBeerFilter !== 'Tutti' && b.tipologia.toLowerCase() !== currentBeerFilter.toLowerCase()) return false;
+                    return true;
                 });
 
-                if (filteredSpirits.length === 0) {
+                if (filtered.length === 0) {
+                    container.innerHTML = `<p class="col-span-full text-center text-stone-500 bg-white p-6 rounded-2xl font-medium text-sm border border-stone-200 shadow-xs">Nessuna birra trovata.</p>`;
+                    return;
+                }
+
+                filtered.forEach(b => {
+                    const innerBorder = getBorderClass(b.tipologia);
+                    container.innerHTML += `
+                        <div onclick="openModal(${b.originalIndex}, 'beer')" class="p-5 rounded-2xl card-double-border ${innerBorder} flex flex-col justify-between cursor-pointer">
+                            <div>
+                                <div class="flex justify-between items-start gap-2">
+                                    <span class="text-[10px] font-semibold px-2.5 py-0.5 rounded-full uppercase tracking-wider bg-stone-100 text-stone-700 border border-stone-300">${b.tipologia}</span>
+                                    <span class="text-[#b08968] font-bold font-sans">${b.prezzo.toFixed(2)} €</span>
+                                </div>
+                                <h3 class="wine-title-cubao text-xl text-stone-900 mt-3 font-bold leading-tight">${b.birrificio}</h3>
+                                <p class="wine-title-cubao text-stone-700 text-sm mt-0.5 font-semibold">${b.nome}</p>
+                                <div class="text-stone-500 text-xs mt-1.5 flex items-center gap-2 font-medium">
+                                    ${b.volume ? `<span>🍺 ${b.volume}</span>` : ''}
+                                    ${b.alcol ? `<span>⚡ ${b.alcol}</span>` : ''}
+                                </div>
+                                ${b.descrizione ? `<p class="text-stone-500 text-xs mt-2 italic line-clamp-2">${b.descrizione}</p>` : ''}
+                            </div>
+                        </div>`;
+                });
+                return;
+            }
+
+            if (currentView === 'superalcolici') {
+                const filtered = spirits.map((s, i) => ({...s, originalIndex: i})).filter(s => {
+                    if (!s.disponibile) return false;
+                    if (currentSpiritFilter !== 'Tutti' && s.categoria.toLowerCase() !== currentSpiritFilter.toLowerCase()) return false;
+                    return true;
+                });
+
+                if (filtered.length === 0) {
                     container.innerHTML = `<p class="col-span-full text-center text-stone-500 bg-white p-6 rounded-2xl font-medium text-sm border border-stone-200 shadow-xs">Nessun superalcolico trovato.</p>`;
                     return;
                 }
 
-                filteredSpirits.forEach(s => {
+                filtered.forEach(s => {
+                    const innerBorder = getBorderClass(s.categoria);
                     container.innerHTML += `
-                        <div onclick="openModal(${s.originalIndex}, 'spirit')" class="bg-white p-5 rounded-2xl border border-stone-200 flex flex-col justify-between transition duration-200 shadow-sm cursor-pointer hover:border-stone-400 hover:shadow-md active:scale-[0.99]">
+                        <div onclick="openModal(${s.originalIndex}, 'spirit')" class="p-5 rounded-2xl card-double-border ${innerBorder} flex flex-col justify-between cursor-pointer">
                             <div>
                                 <div class="flex justify-between items-start gap-2">
-                                    <span class="text-[10px] font-semibold px-2.5 py-0.5 rounded-full uppercase tracking-wider bg-stone-100 text-stone-700 border border-stone-300">${s.categoria || 'Superalcolico'}</span>
-                                    <span class="text-[#b08968] font-bold font-sans">${s.prezzo ? s.prezzo.toFixed(2) : '0.00'} €</span>
+                                    <span class="text-[10px] font-semibold px-2.5 py-0.5 rounded-full uppercase tracking-wider bg-stone-100 text-stone-700 border border-stone-300">${s.categoria}</span>
+                                    <span class="text-[#b08968] font-bold font-sans">${s.prezzo.toFixed(2)} €</span>
                                 </div>
-                                <h3 class="font-handwriting text-2xl text-stone-900 mt-3 font-bold leading-tight">
-                                    ${s.cantina ? s.cantina : s.nome}
-                                </h3>
-                                <p class="text-stone-700 text-sm mt-0.5 font-medium">
-                                    ${s.cantina ? s.nome : ''}
-                                </p>
+                                <h3 class="wine-title-cubao text-xl text-stone-900 mt-3 font-bold leading-tight">${s.cantina || s.nome}</h3>
+                                <p class="wine-title-cubao text-stone-700 text-sm mt-0.5 font-medium">${s.cantina ? s.nome : ''}</p>
                                 ${s.descrizione ? `<p class="text-stone-500 text-xs mt-2 italic line-clamp-2">${s.descrizione}</p>` : ''}
                             </div>
-                        </div>
-                    `;
+                        </div>`;
                 });
                 return;
             }
 
-            let filteredWines = wines.map((w, index) => ({...w, originalIndex: index})).filter(w => {
+            // Vini e Mescita
+            const filtered = wines.map((w, i) => ({...w, originalIndex: i})).filter(w => {
                 if (!w.disponibile) return false;
                 if (currentView === 'mescita' && w.prezzoBicchiere <= 0) return false;
-
-                let matchesFilter = false;
-                const activeFilterLower = currentFilter.toLowerCase().trim();
-                const wineTipoLower = w.tipo ? w.tipo.toLowerCase().trim() : '';
-                
-                if (activeFilterLower === 'tutti') { 
-                    matchesFilter = true; 
-                } else if (activeFilterLower === 'champagne') {
-                    matchesFilter = w.champagne === true || wineTipoLower === 'champagne';
-                } else { 
-                    matchesFilter = wineTipoLower === activeFilterLower; 
-                }
-                
-                let targetPrice = currentView === 'mescita' ? w.prezzoBicchiere : w.prezzo;
-                let matchesPrice = true;
-                if (currentPriceFilter === 'ECONOMY') matchesPrice = targetPrice <= 30;
-                if (currentPriceFilter === 'BUSINESS') matchesPrice = targetPrice >= 31 && targetPrice <= 50;
-                if (currentPriceFilter === 'POWER') matchesPrice = targetPrice > 50;
-
-                let matchesSearch = true;
-                if (searchQuery) {
-                    const fullText = `${w.cantina} ${w.nome} ${w.uve} ${w.regione} ${w.zona} ${w.doc} ${w.anno}`.toLowerCase();
-                    matchesSearch = fullText.includes(searchQuery);
-                }
-
-                return matchesFilter && matchesPrice && matchesSearch;
+                if (currentFilter !== 'Tutti' && w.tipo !== currentFilter.toLowerCase()) return false;
+                return true;
             });
 
-            if (currentView === 'mescita') {
-                const orderMap = {
-                    'franciacorta': 1,
-                    'altre bolle': 2,
-                    'champagne': 3,
-                    'bianco': 4,
-                    'rosso': 5,
-                    'rosa': 6,
-                    'arancione': 7
-                };
-                filteredWines.sort((a, b) => {
-                    const typeA = a.tipo ? a.tipo.toLowerCase().trim() : '';
-                    const typeB = b.tipo ? b.tipo.toLowerCase().trim() : '';
-                    return (orderMap[typeA] || 99) - (orderMap[typeB] || 99);
-                });
-            }
-
-            if(filteredWines.length === 0) {
-                const emptyMsg = currentView === 'mescita' 
-                    ? "Nessun vino in mescita rispecchia i filtri selezionati." 
-                    : "Nessun vino rispecchia i filtri selezionati.";
-                container.innerHTML = `<p class="col-span-full text-center text-stone-500 bg-white p-6 rounded-2xl font-medium text-sm border border-stone-200 shadow-xs">${emptyMsg}</p>`;
+            if (filtered.length === 0) {
+                container.innerHTML = `<p class="col-span-full text-center text-stone-500 bg-white p-6 rounded-2xl font-medium text-sm border border-stone-200 shadow-xs">Nessun elemento trovato.</p>`;
                 return;
             }
 
-            filteredWines.forEach(w => {
-                let badgeLabel = w.sottotipo || 'Vino';
-
-                const docBadge = w.doc ? `<span class="text-[10px] font-sans font-bold tracking-wider bg-stone-100 text-stone-800 px-1.5 py-0.5 rounded border border-stone-300 ml-2 uppercase">${w.doc}</span>` : '';
-                const geoString = w.zona ? `${w.zona} &bull; ${w.regione}` : w.regione;
+            filtered.forEach(w => {
                 const displayPrice = currentView === 'mescita' ? w.prezzoBicchiere : w.prezzo;
-                const priceLabelSuffix = currentView === 'mescita' ? ' € <span class="text-[11px] font-medium text-stone-500">calice</span>' : ' €';
-
+                const innerBorder = getBorderClass(w.tipo);
                 container.innerHTML += `
-                    <div onclick="openModal(${w.originalIndex}, 'wine')" class="bg-white p-5 rounded-2xl border border-stone-200 flex flex-col justify-between transition duration-200 shadow-sm cursor-pointer hover:border-stone-400 hover:shadow-md active:scale-[0.99]">
+                    <div onclick="openModal(${w.originalIndex}, 'wine')" class="p-5 rounded-2xl card-double-border ${innerBorder} flex flex-col justify-between cursor-pointer">
                         <div>
                             <div class="flex justify-between items-start gap-2">
-                                <span class="text-[10px] font-semibold px-2.5 py-0.5 rounded-full uppercase tracking-wider bg-stone-100 text-stone-700 border border-stone-300">${badgeLabel}</span>
-                                <span class="text-[#b08968] font-bold font-sans">${displayPrice ? displayPrice.toFixed(2) : '0.00'}${priceLabelSuffix}</span>
+                                <span class="text-[10px] font-semibold px-2.5 py-0.5 rounded-full uppercase tracking-wider bg-stone-100 text-stone-700 border border-stone-300">${w.sottotipo || 'VINO'}</span>
+                                <span class="text-[#b08968] font-bold font-sans">${displayPrice.toFixed(2)} €${currentView === 'mescita' ? ' <span class="text-[11px] font-medium text-stone-500">calice</span>' : ''}</span>
                             </div>
-                            <h3 class="font-handwriting text-2xl text-stone-900 mt-3 font-bold leading-tight">
-                                ${w.cantina}
-                            </h3>
+                            <h3 class="wine-title-cubao text-xl text-stone-900 mt-3 font-bold leading-tight">${w.cantina}</h3>
                             <div class="text-stone-700 text-sm mt-1 font-semibold flex items-center flex-wrap">
-                                <span class="font-handwriting text-2xl font-bold leading-none mr-2">${w.nome}</span>
+                                <span class="wine-title-cubao text-xl font-bold leading-none mr-2">${w.nome}</span>
                                 <span class="text-xs font-sans text-stone-500 font-normal">${w.anno || ''}</span>
-                                ${docBadge}
+                                ${w.doc ? `<span class="text-[10px] font-sans font-bold tracking-wider bg-stone-100 text-stone-800 px-1.5 py-0.5 rounded border border-stone-300 ml-2 uppercase">${w.doc}</span>` : ''}
                             </div>
-                            <p class="text-stone-500 text-xs mt-2 font-medium flex items-center gap-1">
-                                🍇 Uve: <span class="font-normal text-stone-700">${w.uve || 'N/D'}</span>
-                            </p>
-                            <p class="text-stone-500 text-xs mt-1.5 flex items-center gap-1 font-medium">📍 ${geoString}</p>
+                            <p class="text-stone-500 text-xs mt-2 font-medium flex items-center gap-1">🍇 UVE: <span class="font-normal text-stone-700">${w.uve || 'N/D'}</span></p>
+                            <p class="text-stone-500 text-xs mt-1.5 flex items-center gap-1 font-medium">📍 ${w.zona ? w.zona + ' &bull; ' : ''}${w.regione}</p>
                         </div>
-                    </div>
-                `;
+                    </div>`;
             });
         }
 
